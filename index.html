@@ -1,0 +1,2388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An abandoned personal website from a lonely girl lost inside the wired. Serial Experiments Lain inspired gothic cyber-horror personal page.">
+  <title>LAYER:07 — lost in the wired</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=VT323&family=Press+Start+2P&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            garamond: ['EB Garamond', 'Cormorant Garamond', 'serif'],
+            cinzel: ['Cinzel', 'serif'],
+            vt323: ['VT323', 'monospace'],
+            pressStart: ['Press Start 2P', 'monospace'],
+          },
+          colors: {
+            gothic: {
+              black: '#020001',
+              bg: '#0a0406',
+              text: '#e8d8c8',
+              accent: '#c86464',
+            },
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<style>
+  /* ======================================================
+     RESET & BASE
+  ====================================================== */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #020001;
+    color: #e8d8c8;
+    font-family: 'EB Garamond', 'Cormorant Garamond', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: url('cursor/cursor-normal.cur'), auto;
+  }
+
+  /* Custom cursor for interactive elements */
+  a, button, [role="button"], input[type="button"], input[type="submit"], select, .clickable {
+    cursor: url('cursor/cursor-select.cur'), pointer;
+  }
+
+  /* ======================================================
+     FULL-SCREEN BACKGROUND LAYERS
+  ====================================================== */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .bg-wallpaper {
+    background: url('img/background/Lain-wallpaper.jpg') center center / cover no-repeat;
+    filter: brightness(0.50) saturate(0.4) contrast(1.2);
+    z-index: 0;
+  }
+
+  .bg-vignette {
+    background:
+      radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%),
+      radial-gradient(ellipse at 20% 80%, rgba(60,0,0,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(40,0,10,0.1) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  /* Gothic cathedral / lace texture overlay */
+  .bg-texture {
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(60,0,0,0.02) 100px, rgba(60,0,0,0.02) 101px);
+    z-index: 2;
+  }
+
+  /* CRT Scanlines */
+  .bg-scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0,0,0,0.15) 1px,
+      rgba(0,0,0,0.15) 2px
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* Static noise overlay */
+  .bg-noise {
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.04;
+    animation: noiseShift 0.15s steps(5) infinite;
+  }
+
+  @keyframes noiseShift {
+    0% { transform: translate(0,0); }
+    20% { transform: translate(-2px,1px); }
+    40% { transform: translate(1px,-1px); }
+    60% { transform: translate(-1px,2px); }
+    80% { transform: translate(2px,0); }
+    100% { transform: translate(0,-2px); }
+  }
+
+  /* VHS Glitch */
+  .bg-glitch {
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    animation: vhsGlitch 8s ease-in-out infinite;
+  }
+
+  @keyframes vhsGlitch {
+    0%, 92%, 100% { opacity: 0; }
+    93% {
+      opacity: 0.6;
+      background: linear-gradient(transparent 40%, rgba(120,0,0,0.1) 40.5%, rgba(120,0,0,0.1) 41%, transparent 41.5%);
+    }
+    94% { opacity: 0; }
+    96% {
+      opacity: 0.4;
+      background: linear-gradient(transparent 60%, rgba(80,0,0,0.15) 60.2%, rgba(80,0,0,0.15) 61%, transparent 61.2%);
+    }
+    97% { opacity: 0; }
+  }
+
+  /* ======================================================
+     PARTICLES
+  ====================================================== */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 6;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(180, 30, 30, 0.35);
+    border-radius: 50%;
+    animation: particleFloat linear infinite;
+    box-shadow: 0 0 4px rgba(150, 20, 20, 0.3);
+  }
+
+  .particle:nth-child(1)  { left: 8%;  animation-duration: 20s; animation-delay: 0s;  top: -5%; width: 3px; height: 3px; }
+  .particle:nth-child(2)  { left: 22%; animation-duration: 25s; animation-delay: 4s;  top: -5%; }
+  .particle:nth-child(3)  { left: 38%; animation-duration: 18s; animation-delay: 7s;  top: -5%; width: 2.5px; height: 2.5px; }
+  .particle:nth-child(4)  { left: 52%; animation-duration: 28s; animation-delay: 2s;  top: -5%; }
+  .particle:nth-child(5)  { left: 68%; animation-duration: 22s; animation-delay: 9s;  top: -5%; width: 3px; height: 3px; }
+  .particle:nth-child(6)  { left: 82%; animation-duration: 20s; animation-delay: 5s;  top: -5%; }
+  .particle:nth-child(7)  { left: 14%; animation-duration: 26s; animation-delay: 11s; top: -5%; }
+  .particle:nth-child(8)  { left: 58%; animation-duration: 19s; animation-delay: 8s;  top: -5%; width: 2.5px; height: 2.5px; }
+  .particle:nth-child(9)  { left: 44%; animation-duration: 23s; animation-delay: 3s;  top: -5%; }
+  .particle:nth-child(10) { left: 76%; animation-duration: 21s; animation-delay: 6s;  top: -5%; width: 2px; height: 2px; }
+
+  @keyframes particleFloat {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    8%   { opacity: 0.7; }
+    92%  { opacity: 0.7; }
+    100% { transform: translateY(110vh) translateX(25px); opacity: 0; }
+  }
+
+  /* ======================================================
+     FLOATING CRYPTIC TEXT
+  ====================================================== */
+  .cryptic-float {
+    position: fixed;
+    pointer-events: none;
+    z-index: 6;
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+    color: rgba(200, 80, 80, 0.6);
+    letter-spacing: 2px;
+    animation: crypticDrift 12s ease-in-out infinite;
+  }
+
+  .cryptic-float:nth-child(1) { top: 12%; left: 5%; animation-delay: 0s; }
+  .cryptic-float:nth-child(2) { top: 75%; right: 4%; animation-delay: 4s; }
+  .cryptic-float:nth-child(3) { bottom: 8%; left: 8%; animation-delay: 8s; }
+
+  @keyframes crypticDrift {
+    0%, 100% { opacity: 0.15; transform: translateY(0); }
+    50% { opacity: 0.35; transform: translateY(-8px); }
+  }
+
+  /* ======================================================
+     PAGE WRAPPER — fixed 1100x600
+  ====================================================== */
+  .page-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 1100px;
+    height: 600px;
+    overflow: hidden;
+  }
+
+  /* ======================================================
+     MAIN CONTAINER
+  ====================================================== */
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    border: 2px solid #000000;
+    position: relative;
+    box-shadow:
+      0 0 40px rgba(0, 0, 0, 0.8),
+      inset 0 0 60px rgba(0, 0, 0, 0.6);
+    animation: containerFadeIn 1.5s ease-out;
+  }
+
+  @keyframes containerFadeIn {
+    from { opacity: 0; transform: scale(0.98); filter: brightness(0.5); }
+    to   { opacity: 1; transform: scale(1); filter: brightness(1); }
+  }
+
+  /* Inner pixel border effect */
+  .container::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid #000000;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* Corner decorations */
+  .container::after {
+    display: none;
+  }
+
+  .corner-br {
+    display: none;
+  }
+
+  /* ======================================================
+     SIDEBAR — 200px — OLD-WEB RETRO STYLE
+  ====================================================== */
+  .sidebar {
+    width: 200px;
+    min-width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+    border-right: 2px solid #000000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle inner border line */
+  .sidebar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-right: 1px solid #111111;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ---- Avatar Frame — large rectangular, thick bordered ---- */
+  .profile-section {
+    padding: 8px 10px 6px;
+    text-align: center;
+    position: relative;
+  }
+
+  .profile-avatar {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin: 0 auto 0;
+    border: 3px solid #000000;
+    outline: 2px solid #111111;
+    outline-offset: -1px;
+    box-shadow:
+      0 0 0 1px #000000,
+      0 4px 20px rgba(0, 0, 0, 0.8),
+      inset 0 0 30px rgba(0, 0, 0, 0.6);
+    position: relative;
+    transition: box-shadow 0.5s ease;
+  }
+
+  .profile-avatar:hover {
+    box-shadow:
+      0 0 0 1px #000000,
+      0 4px 25px rgba(0, 0, 0, 0.9),
+      inset 0 0 30px rgba(0, 0, 0, 0.6);
+  }
+
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.1) saturate(0.6) brightness(0.8);
+    transition: filter 0.5s;
+    display: block;
+  }
+
+  .profile-avatar:hover img {
+    filter: contrast(1.15) saturate(0.8) brightness(0.9);
+  }
+
+  /* Scanline effect on avatar */
+  .profile-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Vignette on avatar */
+  .profile-avatar-vignette {
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .profile-name {
+    display: none; /* hidden — name shown elsewhere */
+  }
+
+  .profile-status {
+    display: none;
+  }
+
+  .profile-divider {
+    display: none;
+  }
+
+  /* ---- Navigation — boxy old-web buttons ---- */
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 6px;
+    flex: 0 0 auto;
+    margin: 8px 10px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid #333333;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-btn {
+    display: block;
+    padding: 7px 10px;
+    color: #b8b8b8;
+    text-decoration: none;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    border: 1px solid #000000;
+    border-top-color: #222222;
+    border-left-color: #222222;
+    border-bottom-color: #050505;
+    border-right-color: #050505;
+    background: linear-gradient(180deg, #121212 0%, #080808 100%);
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    border-radius: 3px;
+  }
+
+  .nav-btn::before {
+    display: none;
+  }
+
+  .nav-btn:hover {
+    color: #cccccc;
+    border-color: #000000;
+    border-top-color: #2d2d2d;
+    border-left-color: #2d2d2d;
+    border-bottom-color: #050505;
+    border-right-color: #050505;
+    background: linear-gradient(180deg, #181818 0%, #0a0a0a 100%);
+    animation: navGlitch 0.4s ease-in-out;
+  }
+
+  @keyframes navGlitch {
+    0% { transform: translate(0, 0); text-shadow: 0 0 0 transparent; }
+    20% { transform: translate(-2px, 1px); text-shadow: 2px 0 0 rgba(255, 0, 0, 0.5); }
+    40% { transform: translate(1px, -1px); text-shadow: -2px 0 0 rgba(0, 255, 255, 0.3); }
+    60% { transform: translate(-1px, 1px); text-shadow: 2px 0 0 rgba(255, 0, 0, 0.4); }
+    80% { transform: translate(2px, -1px); text-shadow: -2px 0 0 rgba(0, 255, 255, 0.2); }
+    100% { transform: translate(0, 0); text-shadow: 0 0 0 transparent; }
+  }
+
+  .nav-btn:active {
+    background: #050505;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .nav-btn.active {
+    color: #ffffff;
+    border: 1px solid #000000;
+    border-top-color: #333333;
+    border-left-color: #333333;
+    border-bottom-color: #050505;
+    border-right-color: #050505;
+    background: linear-gradient(180deg, #1c1c1c 0%, #0f0f0f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* ---- Sidebar Bottom — visitor counter & guestbook ---- */
+  .sidebar-bottom {
+    padding: 10px 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+    position: relative;
+  }
+
+  .visit-counter-container {
+    position: relative;
+    width: 100%;
+    height: 75px;
+  }
+
+  .visit-counter {
+    background: #000000;
+    border: 1px solid #1a1a1a;
+    padding: 12px 10px;
+    width: 135px;
+    height: 100%;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    color: #888888;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .visit-counter .count {
+    color: #ffffff;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-left: 4px;
+    animation: counterFlicker 4s ease-in-out infinite;
+  }
+
+  @keyframes counterFlicker {
+    0%, 90%, 100% { opacity: 1; }
+    92% { opacity: 0.4; }
+    94% { opacity: 1; }
+    96% { opacity: 0.5; }
+  }
+
+  /* ---- Sidebar Character Deco — chibi at bottom overlapping ---- */
+  .character {
+    position: absolute;
+    bottom: -5px;
+    right: -12px;
+    z-index: 10;
+    pointer-events: none;
+    height: 95px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .character img {
+    height: 110px;
+    width: auto;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.9)) saturate(0.85) brightness(0.9);
+    transition: all 0.3s ease;
+  }
+
+  .character img:hover {
+    filter: drop-shadow(0 3px 12px rgba(255, 255, 255, 0.1)) saturate(1) brightness(1);
+  }
+
+  .guestbook-btn {
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #ffffff;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 4px;
+    background: transparent;
+    border: none;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: color 0.2s;
+  }
+
+  .guestbook-btn:hover {
+    color: #e08050;
+  }
+
+  .guestbook-btn .gb-icon {
+    font-size: 16px;
+    line-height: 1;
+    color: #5599ff;
+    font-style: normal;
+  }
+
+  .blink-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: #8a2020;
+    border-radius: 50%;
+    animation: blinker 1.5s ease-in-out infinite;
+    box-shadow: 0 0 4px rgba(150, 20, 20, 0.5);
+  }
+
+  @keyframes blinker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ---- Sidebar blinking GIF deco ---- */
+  .sidebar-blink-deco {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .sidebar-blink-deco .blink-star {
+    font-size: 8px;
+    color: rgba(200, 80, 80, 0.7);
+    animation: starBlink 2s ease-in-out infinite;
+  }
+
+  .sidebar-blink-deco .blink-star:nth-child(2) { animation-delay: 0.7s; }
+  .sidebar-blink-deco .blink-star:nth-child(3) { animation-delay: 1.4s; }
+
+  @keyframes starBlink {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.8; color: rgba(200, 50, 50, 0.6); }
+  }
+
+  /* ======================================================
+     MAIN CONTENT AREA — right side
+  ====================================================== */
+  .main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ---- Top Header Bar ---- */
+  .header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 12px;
+    background: rgba(10, 4, 6, 0.95);
+    border-bottom: 1px solid #000000;
+    min-height: 24px;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-family: 'VT323', monospace;
+    font-size: 13px;
+    color: rgba(200, 100, 100, 0.9);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .header-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .header-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+  }
+
+  .header-dot:nth-child(1) { background: #555555; }
+  .header-dot:nth-child(2) { background: #333333; }
+  .header-dot:nth-child(3) { background: #222222; }
+
+  /* ---- Banner ---- */
+  .banner {
+    height: 110px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #000000;
+    flex-shrink: 0;
+  }
+
+  .banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: saturate(0.5) brightness(0.55) contrast(1.2);
+  }
+
+  .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 30%, rgba(0, 0, 0, 0.8) 100%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, transparent 30%);
+    pointer-events: none;
+  }
+
+  .banner-text {
+    position: absolute;
+    bottom: 10px;
+    right: 14px;
+    text-align: right;
+    z-index: 3;
+  }
+
+  .banner-text p {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: rgba(230, 170, 170, 1);
+    font-style: italic;
+    line-height: 1.5;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.5px;
+  }
+
+  .banner-title {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+  }
+
+  .banner-title h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    color: rgba(240, 180, 180, 0.9);
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  }
+
+  .banner-title span {
+    font-family: 'VT323', monospace;
+    font-size: 10px;
+    color: rgba(200, 120, 120, 0.85);
+    letter-spacing: 3px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ---- Content Area Split ---- */
+  .content-body {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* ---- Main Panel (left of content) ---- */
+  .main-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  /* Welcome Card */
+  .welcome-panel {
+    background: rgba(10, 4, 6, 0.9);
+    border: 1px solid #000000;
+    padding: 12px 14px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .welcome-panel h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: #e0c8b8;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-style: italic;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .welcome-panel h2::after {
+    content: ' ———';
+    color: rgba(100, 15, 15, 0.3);
+    font-style: normal;
+  }
+
+  .welcome-panel p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #d0b8a8;
+    margin-bottom: 6px;
+  }
+
+  .welcome-panel p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Diary Panel */
+  .diary-panel {
+    background: rgba(10, 4, 6, 0.85);
+    border: 1px solid #000000;
+    padding: 10px 14px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    position: relative;
+  }
+
+  .diary-panel::-webkit-scrollbar { width: 4px; }
+  .diary-panel::-webkit-scrollbar-track { background: transparent; }
+  .diary-panel::-webkit-scrollbar-thumb {
+    background: rgba(160, 40, 40, 0.6);
+    border-radius: 10px;
+  }
+
+  .diary-header {
+    font-family: 'VT323', monospace;
+    font-size: 13px;
+    color: rgba(220, 100, 100, 0.9);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .diary-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(85, 85, 85, 0.3), transparent);
+  }
+
+  .diary-entry {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000000;
+  }
+
+  .diary-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .diary-date {
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+    color: rgba(200, 100, 100, 0.8);
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .diary-entry p {
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: #c0a898;
+    font-style: italic;
+  }
+
+  .diary-entry .quote {
+    color: rgba(220, 120, 120, 0.8);
+    font-family: 'EB Garamond', serif;
+    font-size: 12px;
+    padding-left: 10px;
+    border-left: 2px solid #555555;
+    margin-top: 4px;
+  }
+
+  /* ---- Bottom Cards Row ---- */
+  .bottom-cards {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .mini-card {
+    flex: 1;
+    background: rgba(8, 3, 4, 0.9);
+    border: 1px solid #000000;
+    padding: 8px 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mini-card:hover {
+    border-color: #222222;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .mini-card-title {
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    color: #d0a090;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .mini-card-content {
+    font-size: 11px;
+    color: #b8a8a0;
+    line-height: 1.5;
+  }
+
+  .mini-card-content a {
+    color: #d8a8a0;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .mini-card-content a:hover {
+    color: #cc6060;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ---- Right Widget Column ---- */
+  .widget-col {
+    width: 195px;
+    min-width: 195px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 10px 10px 4px;
+    border-left: 1px solid #000000;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .widget-col::-webkit-scrollbar { width: 3px; }
+  .widget-col::-webkit-scrollbar-track { background: transparent; }
+  .widget-col::-webkit-scrollbar-thumb {
+    background: rgba(160, 40, 40, 0.5);
+    border-radius: 10px;
+  }
+
+  .widget {
+    background: rgba(8, 3, 4, 0.85);
+    border: 1px solid #000000;
+    padding: 8px 10px;
+    position: relative;
+  }
+
+  .widget-title {
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    color: rgba(220, 120, 120, 0.85);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #111111;
+    padding-bottom: 4px;
+  }
+
+  /* Now Playing Widget */
+  .now-playing {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .track-info {
+    font-size: 11px;
+    color: #b8a090;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .track-title {
+    color: #d8a090;
+    font-style: normal;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .audio-bars {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 16px;
+  }
+
+  .audio-bar {
+    width: 3px;
+    background: rgba(120, 20, 20, 0.5);
+    border-radius: 1px;
+    animation: audioWave 1.2s ease-in-out infinite;
+  }
+
+  .audio-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+  .audio-bar:nth-child(2) { height: 70%; animation-delay: 0.15s; }
+  .audio-bar:nth-child(3) { height: 50%; animation-delay: 0.3s; }
+  .audio-bar:nth-child(4) { height: 90%; animation-delay: 0.1s; }
+  .audio-bar:nth-child(5) { height: 30%; animation-delay: 0.25s; }
+  .audio-bar:nth-child(6) { height: 60%; animation-delay: 0.05s; }
+  .audio-bar:nth-child(7) { height: 45%; animation-delay: 0.2s; }
+  .audio-bar:nth-child(8) { height: 75%; animation-delay: 0.35s; }
+
+  @keyframes audioWave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.4); }
+  }
+
+  /* Audio bars pause animation */
+  .audio-bars.paused .audio-bar {
+    animation-play-state: paused;
+  }
+
+  /* Rei image in Banner */
+  .banner-rei-img {
+    position: absolute;
+    bottom: -180px; /* Start hidden below the banner */
+    left: 15px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    z-index: 2;
+    transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+    filter: grayscale(0.2) brightness(1.0) contrast(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
+  
+  .banner:hover .banner-rei-img {
+    bottom: 0;
+    opacity: 1;
+  }
+
+  /* Floating Retro Player */
+  .retro-audio-player {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 250px;
+    background: #020001;
+    border: 2px solid #c86464;
+    box-shadow: 0 0 20px rgba(200, 100, 100, 0.15), 0 8px 30px rgba(0,0,0,0.9);
+    z-index: 200;
+    font-family: 'VT323', monospace;
+    font-size: 13px;
+    color: #e8d8c8;
+    
+    transition: all 0.3s ease;
+    border-radius: 0;
+  }
+
+  .retro-audio-player.minimized {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #c86464;
+    background: radial-gradient(circle at 30% 30%, rgba(200, 100, 100, 0.1), #020001);
+    box-shadow: 0 0 20px rgba(200, 100, 100, 0.3), 0 0 40px rgba(200, 100, 100, 0.1);
+  }
+
+  .retro-audio-player.minimized .player-titlebar {
+    display: none;
+  }
+
+  .retro-audio-player.minimized .player-body {
+    display: none;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+  }
+
+  .retro-audio-player.minimized::before {
+    content: '♫';
+    font-size: 32px;
+    color: #c86464;
+    text-shadow: 0 0 10px rgba(200, 100, 100, 0.5);
+    animation: musicPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes musicPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .player-titlebar {
+    background: #c86464;
+    color: #020001;
+    padding: 3px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+    user-select: none;
+  }
+
+  .player-min-btn {
+    background: transparent;
+    border: none;
+    color: #020001;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    font-weight: bold;
+    padding: 0 4px;
+    font-size: 14px;
+  }
+
+  .player-body {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: linear-gradient(180deg, #0d0608 0%, #030102 100%);
+  }
+
+  .player-display {
+    background: #050203;
+    border: 1px solid #1f0f11;
+    padding: 4px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .song-title-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 130px;
+  }
+
+  .song-title {
+    display: inline-block;
+    animation: marquee 8s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(-30%, 0, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+
+  .time-display {
+    color: #c86464;
+  }
+
+  .player-progress-container {
+    height: 6px;
+    background: #120608;
+    border: 1px solid #220f11;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    position: relative;
+  }
+
+  .player-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #c86464;
+  }
+
+  .player-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .ctrl-btn {
+    background: #1a0a0a;
+    border: 1px solid #c86464;
+    color: #e8d8c8;
+    padding: 2px 8px;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+  }
+
+  .ctrl-btn:hover {
+    background: #c86464;
+    color: #020001;
+  }
+
+  .volume-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+  }
+
+  .vol-icon {
+    color: #c86464;
+    font-size: 10px;
+  }
+
+  .retro-volume-slider {
+    width: 50px;
+    height: 4px;
+    background: #220f11;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+  }
+
+  .retro-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 8px;
+    height: 10px;
+    background: #c86464;
+    border: 1px solid #000;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+  }
+
+  /* Now Playing Widget modifications */
+  .widget-play-btn {
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+    color: #e8d8c8;
+    background: #1a0a0a;
+    border: 1px solid #c86464;
+    padding: 2px 6px;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.2s ease;
+  }
+
+  .widget-play-btn:hover {
+    background: #c86464;
+    color: #020001;
+  }
+
+  /* Hide player controls on mobile, show only when needed */
+  @media (max-width: 1100px) {
+    .retro-audio-player {
+      left: 10px;
+      bottom: 10px;
+      width: 220px;
+      opacity: 0.9;
+      cursor: url('cursor/cursor-select.cur'), pointer;
+    }
+  }
+
+  /* Thumbnail widget */
+  .thumb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .thumb {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid #000000;
+    position: relative;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.3s;
+  }
+
+  .thumb:hover {
+    border-color: #333333;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.4) brightness(0.7) contrast(1.1);
+    transition: filter 0.3s;
+  }
+
+  .thumb:hover img {
+    filter: saturate(0.6) brightness(0.85) contrast(1.15);
+  }
+
+  /* Distortion effect on thumbs */
+  .thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.1) 2px,
+      rgba(0,0,0,0.1) 4px
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* Badges widget */
+  .badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: center;
+  }
+
+  .badge-88x31 {
+    width: 88px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: #e8d8d0;
+    border: 1px solid #000000;
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.9));
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.3s;
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .badge-88x31:hover {
+    border-color: #333333;
+    color: #e0a0a0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .badge-88x31.red {
+    background: linear-gradient(180deg, rgba(40, 10, 10, 0.7), rgba(20, 5, 5, 0.9));
+    color: #e8a8a0;
+  }
+
+  .badge-88x31.dark {
+    background: linear-gradient(180deg, rgba(15, 15, 18, 0.8), rgba(8, 8, 10, 0.9));
+    color: #d0d0e8;
+  }
+
+  /* RSS Icon */
+  .rss-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+    color: #d8a860;
+    padding: 2px 6px;
+    border: 1px solid #000000;
+    background: rgba(30, 15, 5, 0.4);
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.3s;
+  }
+
+  .rss-icon:hover {
+    color: #cc8040;
+    border-color: #333333;
+  }
+
+  /* Best viewed notice */
+  .best-viewed {
+    font-family: 'VT323', monospace;
+    font-size: 10px;
+    color: rgba(160, 120, 100, 0.7);
+    text-align: center;
+    padding: 4px;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+
+  /* Eye symbol */
+  .eye-symbol {
+    text-align: center;
+    font-size: 18px;
+    color: rgba(200, 80, 80, 0.6);
+    text-shadow: 0 0 15px rgba(200, 80, 80, 0.5);
+    animation: eyePulse 3s ease-in-out infinite;
+    cursor: default;
+    user-select: none;
+    padding: 2px 0;
+  }
+
+  @keyframes eyePulse {
+    0%, 100% { opacity: 0.3; text-shadow: 0 0 15px rgba(150, 0, 0, 0.3); }
+    50% { opacity: 0.7; text-shadow: 0 0 25px rgba(180, 0, 0, 0.5); }
+  }
+
+  /* Cryptic text */
+  .cryptic-text {
+    font-family: 'VT323', monospace;
+    font-size: 10px;
+    color: rgba(200, 100, 100, 0.6);
+    letter-spacing: 1px;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* ======================================================
+     FLOATING CHARACTER DECORATION — overlapping right
+  ====================================================== */
+  .deco-character {
+    position: absolute;
+    bottom: 0;
+    right: -25px;
+    z-index: 100;
+    pointer-events: auto;
+    opacity: 0;
+    animation: decoSlide 1.5s ease-out 0.8s forwards;
+  }
+
+  .deco-character img {
+    height: 220px;
+    width: auto;
+    filter:
+      drop-shadow(0 6px 25px rgba(0, 0, 0, 0.9))
+      drop-shadow(0 0 40px rgba(80, 0, 0, 0.3))
+      saturate(0.65)
+      brightness(0.85);
+    pointer-events: auto;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .deco-character img:hover {
+    filter:
+      drop-shadow(0 6px 30px rgba(0, 0, 0, 0.95))
+      drop-shadow(0 0 50px rgba(120, 20, 20, 0.4))
+      saturate(0.75)
+      brightness(0.9);
+  }
+
+  @keyframes decoSlide {
+    from { opacity: 0; transform: translateY(15px) translateX(10px); }
+    to   { opacity: 0.8; transform: translateY(0) translateX(0); }
+  }
+
+  /* ======================================================
+     FLOATING GIF — ambient bottom-left
+  ====================================================== */
+  .ambient-gif-wrap {
+    position: absolute;
+    bottom: 15px;
+    left: -35px;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    animation: decoSlide 1.5s ease-out 1.2s forwards;
+  }
+
+  .ambient-gif-wrap img {
+    height: 75px;
+    width: auto;
+    border: 1px solid #000000;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.8);
+    filter: saturate(0.5) brightness(0.75) contrast(1.1);
+  }
+
+  /* ======================================================
+     FLOATING MOON SYMBOL
+  ====================================================== */
+  .moon-float {
+    position: absolute;
+    top: -15px;
+    right: 80px;
+    z-index: 100;
+    pointer-events: none;
+    font-size: 28px;
+    color: rgba(180, 140, 120, 0.15);
+    text-shadow: 0 0 20px rgba(150, 100, 80, 0.2);
+    animation: moonDrift 8s ease-in-out infinite;
+  }
+
+  @keyframes moonDrift {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+    50% { transform: translateY(-5px) rotate(5deg); opacity: 0.3; }
+  }
+
+  /* ======================================================
+     TYPEWRITER EFFECT
+  ====================================================== */
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #555555;
+    animation: typewrite 3.5s steps(40) 1s forwards, typeBlink 0.7s step-end infinite;
+    width: 0;
+  }
+
+  @keyframes typewrite {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes typeBlink {
+    0%, 100% { border-color: #555555; }
+    50% { border-color: transparent; }
+  }
+
+  /* ======================================================
+     FLICKER EFFECT
+  ====================================================== */
+  .flicker {
+    animation: flickerAnim 5s linear infinite;
+  }
+
+  @keyframes flickerAnim {
+    0%, 19.9%, 22%, 62.9%, 64%, 64.9%, 70%, 100% { opacity: 1; }
+    20%, 21.9% { opacity: 0.7; }
+    63%, 63.9% { opacity: 0.6; }
+    65%, 69.9% { opacity: 0.8; }
+  }
+
+  /* ======================================================
+     UPDATE STAMP
+  ====================================================== */
+  .update-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'VT323', monospace;
+    font-size: 10px;
+    color: rgba(120, 60, 40, 0.5);
+    padding: 2px 6px;
+    border: 1px dashed #000000;
+    background: rgba(20, 10, 5, 0.2);
+    letter-spacing: 0.5px;
+  }
+
+  /* ======================================================
+     TINY DECORATIVE STAMPS
+  ====================================================== */
+  .stamp-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tiny-stamp {
+    font-family: 'VT323', monospace;
+    font-size: 9px;
+    color: rgba(140, 80, 60, 0.4);
+    padding: 1px 5px;
+    border: 1px solid #000000;
+    background: rgba(20, 10, 5, 0.3);
+    letter-spacing: 0.5px;
+  }
+
+  /* ======================================================
+     STATUS BAR — bottom of container
+  ====================================================== */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 10px;
+    background: rgba(8, 3, 4, 0.95);
+    border-top: 1px solid #000000;
+    min-height: 18px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .status-left,
+  .status-right {
+    font-family: 'VT323', monospace;
+    font-size: 10px;
+    color: rgba(100, 50, 50, 0.4);
+    letter-spacing: 1px;
+  }
+
+  /* ======================================================
+     MOBILE RESPONSIVE STYLES (under 1100px)
+  ====================================================== */
+  @media (max-width: 1100px) {
+    body {
+      display: block;
+      height: auto;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 10px 4px;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      overflow: visible;
+      padding: 4px;
+    }
+
+    .container {
+      flex-direction: column;
+      height: auto;
+      width: 100%;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.95);
+      border: 1px solid #000;
+    }
+
+    .container::before {
+      inset: 2px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 100%;
+      min-width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 10px;
+    }
+
+    .sidebar::before {
+      border-right: none;
+      border-bottom: 1px solid #111111;
+    }
+
+    .profile-section {
+      padding: 15px 10px 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-avatar {
+      width: 110px;
+      height: 110px;
+      margin: 0;
+    }
+
+    .sidebar-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin: 8px 12px;
+      padding: 10px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+      border: 1px solid #333333;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn {
+      flex: 1 1 calc(50% - 8px); /* 2 columns grid-like flex */
+      min-width: 120px;
+      max-width: calc(50% - 3px);
+      text-align: center;
+      padding: 6px 9px;
+      font-size: 15px;
+      border-radius: 3px;
+    }
+    
+    .nav-btn:nth-child(5) {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .sidebar-bottom {
+      padding: 10px 14px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+      border-top: 1px dashed rgba(120, 40, 40, 0.25);
+    }
+
+    .visit-counter-container {
+      width: auto;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+    }
+
+    .visit-counter {
+      width: auto;
+      height: 100%;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .character {
+      position: absolute;
+      bottom: -4px;
+      right: 0px;
+      height: 75px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .character img {
+      height: 70px;
+    }
+
+    .guestbook-btn {
+      flex: 0 0 auto;
+      font-size: 14px;
+    }
+
+    /* MAIN AREA */
+    .main-area {
+      width: 100%;
+      height: auto;
+    }
+
+    .header-bar {
+      padding: 6px 12px;
+    }
+
+    /* BANNER */
+    .banner {
+      height: auto;
+      min-height: 130px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .banner img {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .banner-title {
+      position: static;
+      z-index: 3;
+    }
+
+    .banner-title h1 {
+      font-size: 18px;
+      letter-spacing: 2px;
+      line-height: 1.3;
+    }
+
+    .banner-title span {
+      font-size: 9px;
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+
+    .banner-text {
+      position: static;
+      text-align: left;
+      z-index: 3;
+      margin-top: 5px;
+    }
+
+    .banner-text p {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    /* CONTENT BODY */
+    .content-body {
+      flex-direction: column;
+      height: auto;
+      overflow: visible;
+    }
+
+    /* MAIN PANEL & DIARY */
+    .main-panel {
+      width: 100%;
+      height: auto;
+      padding: 12px 10px;
+      gap: 12px;
+      overflow: visible;
+    }
+
+    .welcome-panel {
+      padding: 12px 14px;
+    }
+
+    .welcome-panel p {
+      font-size: 12.5px;
+    }
+
+    .diary-panel {
+      height: auto;
+      max-height: none; /* Expand fully for natural mobile scroll */
+      overflow: visible;
+      padding: 12px 14px;
+    }
+
+    .diary-entry p {
+      font-size: 12px;
+    }
+
+    /* BOTTOM MINI CARDS */
+    .bottom-cards {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mini-card {
+      padding: 10px 12px;
+    }
+
+    /* WIDGET COLUMN */
+    .widget-col {
+      width: 100%;
+      min-width: 100%;
+      border-left: none;
+      border-top: 2px solid #000000;
+      padding: 12px 10px;
+      overflow: visible;
+      gap: 10px;
+    }
+
+    .widget-title {
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .thumb-grid {
+      grid-template-columns: repeat(4, 1fr); /* 4 columns on mobile */
+      gap: 6px;
+    }
+
+    .best-viewed {
+      margin-top: 8px;
+      font-size: 9.5px;
+    }
+
+    /* AMBIENT & FLOATING DECO ELEMENTS */
+    .cryptic-float {
+      display: none !important;
+    }
+
+    .ambient-gif-wrap {
+      display: none !important;
+    }
+
+    .moon-float {
+      display: none !important;
+    }
+
+    .deco-character {
+      right: 10px;
+      bottom: 25px;
+      opacity: 0.3;
+      transform: scale(0.6);
+      transform-origin: bottom right;
+      pointer-events: none;
+    }
+  }
+</style>
+<body>
+  <!-- Audio Element -->
+  <audio id="bg-audio" src="upload-sound/Duvet.mp3" loop></audio>
+
+  <!-- Background layers -->
+  <div class="bg-layer bg-wallpaper"></div>
+  <div class="bg-layer bg-vignette"></div>
+  <div class="bg-layer bg-texture"></div>
+  <div class="bg-layer bg-scanlines"></div>
+  <div class="bg-layer bg-noise" id="noiseLayer"></div>
+  <div class="bg-layer bg-glitch"></div>
+
+  <!-- Floating particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Floating cryptic text -->
+  <div class="cryptic-float">PRESENT DAY. PRESENT TIME.</div>
+  <div class="cryptic-float">no matter where you go, everyone is connected</div>
+  <div class="cryptic-float">close the world. open the nExt.</div>
+
+  <!-- ===== PAGE WRAPPER ===== -->
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="corner-br"></div>
+
+      <!-- ===== SIDEBAR — old-web retro style ===== -->
+      <aside class="sidebar">
+        <!-- Avatar Frame — large rectangular -->
+        <div class="profile-section">
+          <div class="profile-avatar">
+            <img src="img/lain.jpg" alt="Profile">
+            <div class="profile-avatar-vignette"></div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons — boxy old-web -->
+        <nav class="sidebar-nav" id="main-nav">
+          <a href="#y" class="nav-btn active" id="nav-webmaster">webmaster</a>
+          <a href="#" class="nav-btn" id="nav-project">project</a>
+          <a href="#" class="nav-btn" id="nav-writings">writings</a>
+          <a href="music" class="nav-btn" id="nav-music">music</a>
+          <a href="#" class="nav-btn" id="nav-More">More</a>
+        </nav>
+
+        <!-- Blinking decorative stars -->
+        <div class="sidebar-blink-deco">
+          <span class="blink-star">✦</span>
+          <span class="blink-star">✧</span>
+          <span class="blink-star">✦</span>
+        </div>
+
+        <!-- Bottom — visitor count, character & guestbook -->
+        <div class="sidebar-bottom">
+          <div class="visit-counter-container">
+            <div class="visit-counter">
+              Visits: <span class="count" id="visitor-count">20032</span>
+            </div>
+            
+            <!-- Character Decoration — chibi overlapping -->
+            <div class="character">
+              <img src="img/lain-sit.png" alt="Lain" loading="lazy">
+            </div>
+          </div>
+          
+          <a href="#" class="guestbook-btn" id="guestbook-link">
+            <span class="gb-icon">✉</span> Visit Guestbook
+          </a>
+        </div>
+      </aside>
+
+      <!-- ===== MAIN AREA ===== -->
+      <div class="main-area">
+
+        <!-- Header Bar -->
+        <div class="header-bar">
+          <div class="header-title flicker">LAIN IWAKURA</div>
+          <div class="header-controls">
+            <div class="header-dot"></div>
+            <div class="header-dot"></div>
+            <div class="header-dot"></div>
+          </div>
+        </div>
+
+        <!-- Banner -->
+        <div class="banner">
+          <img src="img/background/containerBG.jpg" alt="Banner">
+          <img src="img/Rei.jpg" alt="Rei" class="banner-rei-img">
+          <div class="banner-overlay"></div>
+          <div class="banner-title">
+            <h1>Muhammad Yusuf Akram | Ye-Shaiyoe</h1>
+            <span>protocol ver. 7.0</span>
+          </div>
+          <div class="banner-text">
+            <p>「 if you're not remembered,<br>then you never existed 」</p>
+          </div>
+        </div>
+
+        <!-- Content Body -->
+        <div class="content-body">
+
+          <!-- Main Panel -->
+          <div class="main-panel">
+
+            <!-- Welcome -->
+            <div class="welcome-panel">
+              <h2>Welcome, traveler</h2>
+              <p>
+                You have connected to a forgotten node in the wired.
+                This is a personal archive — a world built from fragments
+                of memory, art, and digital decay.
+              </p>
+              <p>
+                Explore carefully. Not everything here is what it seems.
+                Some doors lead deeper. Some lead nowhere at all.
+              </p>
+              <div style="margin-top: 6px;">
+                <span class="update-stamp">📌 last update: 2026.05.28</span>
+              </div>
+            </div>
+
+            <!-- Diary -->
+            <div class="diary-panel">
+              <div class="diary-header">TRANSMISSION LOG</div>
+
+              <div class="diary-entry">
+                <div class="diary-date">// 2026.05.28 — 03:33 JST</div>
+                <p>
+                  It's raining again outside. The hum of the monitor is the only thing
+                  keeping me company tonight. I finished restructuring the archives...
+                  found some old files I thought were lost forever.
+                </p>
+                <div class="quote">"The only way to understand the wired is to become part of it."</div>
+              </div>
+
+              <div class="diary-entry">
+                <div class="diary-date">// 2026.05.15 — 01:47 JST</div>
+                <p>
+                  Does anyone still visit these kinds of pages? The old web feels
+                  like a graveyard sometimes. But graveyards can be beautiful,
+                  if you know where to look.
+                </p>
+              </div>
+
+              <div class="diary-entry">
+                <div class="diary-date">// 2026.04.30 — 22:10 JST</div>
+                <p>
+                  新しい実験を始めた。I started a new experiment — trying to capture
+                  the feeling of static between channels. That liminal noise.
+                </p>
+                <div class="quote">"Close the world. Open the nExt."</div>
+              </div>
+            </div>
+
+            <!-- Bottom Mini Cards -->
+            <div class="bottom-cards">
+              <div class="mini-card">
+                <div class="mini-card-title">✦ stuff</div>
+                <div class="mini-card-content">
+                  <div class="stamp-row">
+                    <span class="tiny-stamp">html</span>
+                    <span class="tiny-stamp">css</span>
+                    <span class="tiny-stamp">original art</span>
+                    <span class="tiny-stamp">Lain</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card-title">✎ latest</div>
+                <div class="mini-card-content">
+                  <em style="color:#7a5a5a; font-size:11px;">"a borrowed sense of<br>guilt and shame..."</em>
+                </div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card-title">↗ outbound</div>
+                <div class="mini-card-content">
+                  <a href="#">browse links →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Widget Column -->
+          <div class="widget-col">
+
+            <!-- Now Playing -->
+            <div class="widget">
+              <div class="widget-title">♫ now playing</div>
+              <div class="now-playing">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <div class="audio-bars paused" id="widget-audio-bars" style="cursor: pointer;" title="Click to Play/Pause">
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                  </div>
+                  <button id="widget-play-btn" class="widget-play-btn" title="Play/Pause">PLAY</button>
+                </div>
+                <div class="track-title">Duvet — Bôa</div>
+                <div class="track-info">and you don't seem to understand...</div>
+              </div>
+            </div>
+
+            <!-- Image Thumbnails -->
+            <div class="widget">
+              <div class="widget-title">⬡ gallery</div>
+              <div class="thumb-grid">
+                <div class="thumb">
+                  <img src="gif/lonely.gif" alt="Img 1">
+                </div>
+                <div class="thumb">
+                  <img src="img/Joyce Silva on TikTok.jpg" alt="Img 2">
+                </div>
+                <div class="thumb">
+                  <img src="img/profilePic.jpg" alt="Img 3">
+                </div>
+                <div class="thumb">
+                  <img src="img/lain-shoot2.jpg" alt="Img 4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Eye Symbol -->
+            <div class="eye-symbol" title="The eye sees all">◉</div>
+
+            <!-- Badges -->
+            <div class="widget">
+              <div class="widget-title">buttons</div>
+              <div class="badges-row">
+                <div class="badge-88x31 red">SERIAL<br>EXPERIMENTS</div>
+                <div class="badge-88x31 dark">MADE WITH<br>VIM</div>
+                <div class="badge-88x31">BEST VIEWED<br>1024x768</div>
+                <div class="badge-88x31 red">THE WIRED<br>IS REAL</div>
+              </div>
+              <div style="margin-top: 4px;">
+                <div class="rss-icon">◈ RSS</div>
+              </div>
+            </div>
+
+            <!-- Cryptic -->
+            <div class="widget">
+              <div class="cryptic-text">
+                ▸ you don't need to be afraid<br>
+                ▸ the wired is watching<br>
+                ▸ layer 07 loaded<br>
+                ▸ connection: unstable
+              </div>
+            </div>
+
+            <!-- Best Viewed -->
+            <div class="best-viewed">
+              ✧ best viewed on desktop ✧<br>
+              made with love &amp; loneliness
+            </div>
+          </div>
+
+        </div>
+        <!-- end content-body -->
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <div class="status-left">protocol_7 :: connected</div>
+          <div class="status-right" id="clock-display">00:00:00</div>
+        </div>
+
+      </div>
+      <!-- end main-area -->
+
+      <!-- Floating Character Decoration -->
+      <div class="deco-character">
+        <img src="img/lain-shoot.png" alt="Lain" loading="lazy">
+      </div>
+
+      <!-- Floating Moon -->
+      <div class="moon-float">☾</div>
+
+    </div>
+    <!-- end container -->
+
+  </div>
+  <!-- end page-wrapper -->
+
+  <!-- Retro Floating Audio Player -->
+  <div class="retro-audio-player" id="retro-player">
+    <div class="player-titlebar">
+      <span class="title-text">WIRED AUDIO DEVICE</span>
+      <button class="player-min-btn" id="player-min-btn" title="Minimize">—</button>
+    </div>
+    <div class="player-body" id="player-body">
+      <div class="player-display">
+        <div class="song-title-wrap">
+          <div class="song-title">Duvet — Bôa</div>
+        </div>
+        <div class="time-display">
+          <span id="player-time-current">0:00</span>
+          <span class="time-sep">/</span>
+          <span id="player-time-duration">3:40</span>
+        </div>
+      </div>
+      <div class="player-progress-container" id="progress-container">
+        <div class="player-progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="player-controls">
+        <button class="ctrl-btn" id="player-play-btn" title="Play">▶</button>
+        <button class="ctrl-btn" id="player-pause-btn" title="Pause">❚❚</button>
+        <button class="ctrl-btn" id="player-stop-btn" title="Stop">■</button>
+        <div class="volume-container">
+          <span class="vol-icon" title="Volume">⏵</span>
+          <input type="range" id="player-volume" min="0" max="1" step="0.05" value="0.7" class="retro-volume-slider">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ======================================================
+    // NOISE CANVAS — generates animated static
+    // ======================================================
+    (function() {
+      const noiseEl = document.getElementById('noiseLayer');
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      noiseEl.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+
+      function drawNoise() {
+        const imageData = ctx.createImageData(256, 256);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          const v = Math.random() * 255;
+          data[i] = v;
+          data[i + 1] = v;
+          data[i + 2] = v;
+          data[i + 3] = 30;
+        }
+        ctx.putImageData(imageData, 0, 0);
+      }
+
+      setInterval(drawNoise, 100);
+      drawNoise();
+    })();
+
+    // ======================================================
+    // CLOCK — status bar real-time clock
+    // ======================================================
+    (function() {
+      const clockEl = document.getElementById('clock-display');
+      function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        clockEl.textContent = h + ':' + m + ':' + s;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+    })();
+
+    // ======================================================
+    // VISITOR COUNTER — fake incrementing counter
+    // ======================================================
+    (function() {
+      const counterEl = document.getElementById('visitor-count');
+      let count = parseInt(localStorage.getItem('lain_visits') || '20031');
+      count++;
+      localStorage.setItem('lain_visits', count);
+      counterEl.textContent = String(count).padStart(5, '0');
+    })();
+
+    // ======================================================
+    // NAV BUTTON ACTIVE STATE
+    // ======================================================
+    (function() {
+      const btns = document.querySelectorAll('.nav-btn');
+      btns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          // Only prevent default for links with href="#"
+          if (this.getAttribute('href') === '#') {
+            e.preventDefault();
+          }
+          btns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    })();
+
+    // ======================================================
+    // DECO CHARACTER IMAGE HOVER SWAP
+    // ======================================================
+    (function() {
+      const decoImg = document.querySelector('.deco-character img');
+      if (!decoImg) return;
+      
+      decoImg.addEventListener('mouseenter', function() {
+        this.src = 'img/lain-shoot3.png';
+      });
+      
+      decoImg.addEventListener('mouseleave', function() {
+        this.src = 'img/lain-shoot.png';
+      });
+    })();
+
+    // ======================================================
+    // RANDOM GLITCH FLICKER on container
+    // ======================================================
+    (function() {
+      const container = document.querySelector('.container');
+      function randomGlitch() {
+        container.style.transform = `translateX(${(Math.random() - 0.5) * 2}px)`;
+        container.style.filter = `hue-rotate(${Math.random() * 5}deg)`;
+        setTimeout(() => {
+          container.style.transform = 'none';
+          container.style.filter = 'none';
+        }, 50 + Math.random() * 100);
+        setTimeout(randomGlitch, 5000 + Math.random() * 15000);
+      }
+      setTimeout(randomGlitch, 8000);
+    })();
+
+    // ======================================================
+    // TYPEWRITER EFFECT for welcome title
+    // ======================================================
+    (function() {
+      const h2 = document.querySelector('.welcome-panel h2');
+      if (!h2) return;
+      const text = h2.childNodes[0].textContent;
+      h2.childNodes[0].textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          h2.childNodes[0].textContent += text[i];
+          i++;
+          setTimeout(type, 60 + Math.random() * 40);
+        }
+      }
+      setTimeout(type, 1500);
+    })();
+
+    // ======================================================
+    // RETRO AUDIO PLAYER LOGIC
+    // ======================================================
+    (function() {
+      const audio = document.getElementById('bg-audio');
+      const widgetPlayBtn = document.getElementById('widget-play-btn');
+      const widgetAudioBars = document.getElementById('widget-audio-bars');
+      
+      const playerPlayBtn = document.getElementById('player-play-btn');
+      const playerPauseBtn = document.getElementById('player-pause-btn');
+      const playerStopBtn = document.getElementById('player-stop-btn');
+      const playerVolume = document.getElementById('player-volume');
+      const playerTimeCurrent = document.getElementById('player-time-current');
+      const playerTimeDuration = document.getElementById('player-time-duration');
+      const progressBar = document.getElementById('progress-bar');
+      const progressContainer = document.getElementById('progress-container');
+      
+      const playerMinBtn = document.getElementById('player-min-btn');
+      const retroPlayer = document.getElementById('retro-player');
+
+      // Sync state function
+      function updatePlayerUI() {
+        if (audio.paused) {
+          widgetPlayBtn.textContent = 'PLAY';
+          widgetAudioBars.classList.add('paused');
+          playerPlayBtn.style.borderColor = '#c86464';
+          playerPlayBtn.style.background = '#1a0a0a';
+          playerPlayBtn.style.color = '#e8d8c8';
+          playerPauseBtn.style.background = '#c86464';
+          playerPauseBtn.style.color = '#020001';
+        } else {
+          widgetPlayBtn.textContent = 'PAUSE';
+          widgetAudioBars.classList.remove('paused');
+          playerPlayBtn.style.background = '#c86464';
+          playerPlayBtn.style.color = '#020001';
+          playerPauseBtn.style.background = '#1a0a0a';
+          playerPauseBtn.style.color = '#e8d8c8';
+          playerPauseBtn.style.borderColor = '#c86464';
+        }
+      }
+
+      function togglePlay() {
+        if (audio.paused) {
+          audio.play().catch(err => console.log("Audio play blocked: needs user interaction", err));
+        } else {
+          audio.pause();
+        }
+        updatePlayerUI();
+      }
+
+      // Play/Pause button click handlers
+      widgetPlayBtn.addEventListener('click', togglePlay);
+      widgetAudioBars.addEventListener('click', togglePlay);
+      playerPlayBtn.addEventListener('click', () => {
+        audio.play().catch(err => console.log(err));
+        updatePlayerUI();
+      });
+      playerPauseBtn.addEventListener('click', () => {
+        audio.pause();
+        updatePlayerUI();
+      });
+      playerStopBtn.addEventListener('click', () => {
+        audio.pause();
+        audio.currentTime = 0;
+        updatePlayerUI();
+      });
+
+      // Volume change handler
+      playerVolume.addEventListener('input', (e) => {
+        audio.volume = e.target.value;
+      });
+
+      // Set initial volume
+      audio.volume = playerVolume.value;
+
+      // Track time format helper
+      function formatTime(secs) {
+        if (isNaN(secs)) return '0:00';
+        const minutes = Math.floor(secs / 60);
+        const seconds = Math.floor(secs % 60);
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }
+
+      // Update time & progress bar
+      audio.addEventListener('timeupdate', () => {
+        playerTimeCurrent.textContent = formatTime(audio.currentTime);
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+      });
+
+      // Update duration on load
+      audio.addEventListener('loadedmetadata', () => {
+        playerTimeDuration.textContent = formatTime(audio.duration);
+      });
+
+      // If duration is already loaded
+      if (audio.readyState >= 1) {
+        playerTimeDuration.textContent = formatTime(audio.duration);
+      }
+
+      // Progress bar clicking to seek
+      progressContainer.addEventListener('click', (e) => {
+        const width = progressContainer.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audio.duration;
+        if (duration) {
+          audio.currentTime = (clickX / width) * duration;
+        }
+      });
+
+      // Minimize button handler
+      playerMinBtn.addEventListener('click', () => {
+        retroPlayer.classList.toggle('minimized');
+      });
+
+      // Click minimized circle to restore
+      retroPlayer.addEventListener('click', (e) => {
+        // Only toggle if clicking on the minimized circle (not buttons inside)
+        if (retroPlayer.classList.contains('minimized') && e.target === retroPlayer) {
+          retroPlayer.classList.remove('minimized');
+        }
+      });
+
+      // Sync state initially
+      updatePlayerUI();
+    })();
+  </script>
+
+</body>
+</html>

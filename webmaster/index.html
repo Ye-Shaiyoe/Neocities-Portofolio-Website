@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Webmaster section">
+  <title>Webmaster</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=VT323&family=Press+Start+2P&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            garamond: ['EB Garamond', 'Cormorant Garamond', 'serif'],
+            cinzel: ['Cinzel', 'serif'],
+            vt323: ['VT323', 'monospace'],
+            pressStart: ['Press Start 2P', 'monospace'],
+          },
+          colors: {
+            gothic: {
+              black: '#020001',
+              bg: '#0a0406',
+              text: '#e8d8c8',
+              accent: '#c86464',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  
+  <style>
+    body {
+      background-color: #020001;
+      color: #e8d8c8;
+      cursor: url('../cursor/cursor-normal.cur'), auto;
+    }
+    
+    a, button, [role="button"] {
+      cursor: url('../cursor/cursor-select.cur'), pointer;
+    }
+  </style>
+</head>
+<body class="bg-gothic-black font-garamond text-gothic-text">
+
+  <div class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-black border-b border-gray-800 p-4">
+      <div class="max-w-6xl mx-auto">
+        <h1 class="font-cinzel text-3xl text-gothic-accent mb-2">Webmaster</h1>
+        <p class="text-gothic-text text-sm">Administration & Config</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 max-w-6xl mx-auto w-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="bg-black border border-gray-800 p-6 hover:border-gray-600 transition">
+          <h2 class="font-cinzel text-xl text-gothic-accent mb-4">Site Settings</h2>
+          <p class="text-gothic-text text-sm mb-4 leading-relaxed">
+            Configure site-wide settings, metadata, and appearance options.
+          </p>
+          <button class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 transition font-vt323 text-sm">
+            Edit Settings
+          </button>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-black border border-gray-800 p-6 hover:border-gray-600 transition">
+          <h2 class="font-cinzel text-xl text-gothic-accent mb-4">Content Manager</h2>
+          <p class="text-gothic-text text-sm mb-4 leading-relaxed">
+            Manage pages, posts, and other content pieces.
+          </p>
+          <button class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 transition font-vt323 text-sm">
+            Manage Content
+          </button>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-black border border-gray-800 p-6 hover:border-gray-600 transition">
+          <h2 class="font-cinzel text-xl text-gothic-accent mb-4">Analytics</h2>
+          <p class="text-gothic-text text-sm mb-4 leading-relaxed">
+            View visitor statistics and engagement data.
+          </p>
+          <button class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 transition font-vt323 text-sm">
+            View Analytics
+          </button>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-black border border-gray-800 p-6 hover:border-gray-600 transition">
+          <h2 class="font-cinzel text-xl text-gothic-accent mb-4">Backup</h2>
+          <p class="text-gothic-text text-sm mb-4 leading-relaxed">
+            Download and restore website backups.
+          </p>
+          <button class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 transition font-vt323 text-sm">
+            Manage Backups
+          </button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 bg-black p-4 text-center text-sm text-gray-500 font-vt323">
+      <p>© 2026 - Admin Panel v1.0</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
