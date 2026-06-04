@@ -171,33 +171,6 @@ Neocities-web/
 
 ---
 
-## Sections & Content Areas
-
-### Currently Implemented
-1. **Sidebar**
-   - Avatar with scanline effect
-   - Navigation menu (buttons: home, diary, projects, skills, links, etc.)
-   - Visitor counter
-   - Guestbook button
-   - Character decoration
-
-2. **Main Content**
-   - Banner with title and subtitle
-   - Welcome panel (intro text)
-   - Diary panel (scrollable list of entries)
-
-### Future Expansion Areas
-- **Projects section** (`project/` folder)
-- **Skills/portfolio** (`skill/` folder)
-- **Webmaster panel** (`webmaster/` folder) — for administration
-- **Right sidebar** — Currently empty in content-body; could add:
-  - Links section
-  - Status/online indicators
-  - Recent updates
-  - External links to social media
-
----
-
 ## Design Principles & Patterns
 
 ### 1. **Layered Depth**
