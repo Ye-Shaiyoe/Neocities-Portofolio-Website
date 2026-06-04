@@ -1431,12 +1431,15 @@
      EXTENDED CURSOR TRIGGERS
   ====================================================== */
   .cursor-text, .cursor-interact, .cursor-grab, .cursor-zoom, .cursor-link {
-    cursor: url('cursor/cursor-select.cur'), pointer;
     transition: all 0.2s ease;
   }
 
   .cursor-text {
-    cursor: text;
+    cursor: url('cursor/cursor-text.cur'), text;
+  }
+
+  .cursor-interact {
+    cursor: url('cursor/cursor-select.cur'), pointer;
   }
 
   .cursor-grab:hover {
@@ -2105,11 +2108,11 @@
           <img src="img/Rei.jpg" alt="Rei" class="banner-rei-img">
           <div class="banner-overlay"></div>
           <div class="banner-title">
-            <h1>Muhammad Yusuf Akram | Ye-Shaiyoe</h1>
-            <span>protocol ver. 7.0</span>
+            <h1 class="cursor-text">Muhammad Yusuf Akram | Ye-Shaiyoe</h1>
+            <span class="cursor-text">protocol ver. 7.0</span>
           </div>
           <div class="banner-text">
-            <p>「 if you're not remembered,<br>then you never existed 」</p>
+            <p class="cursor-text">「 if you're not remembered,<br>then you never existed 」</p>
           </div>
         </div>
 
@@ -2138,21 +2141,21 @@
 
             <!-- Diary -->
             <div class="diary-panel">
-              <div class="diary-header">TRANSMISSION LOG</div>
+              <div class="diary-header cursor-text">TRANSMISSION LOG</div>
 
               <div class="diary-entry">
-                <div class="diary-date">// 2026.05.28 — 03:33 JST</div>
-                <p>
+                <div class="diary-date cursor-text">// 2026.05.28 — 03:33 JST</div>
+                <p class="cursor-text">
                   It's raining again outside. The hum of the monitor is the only thing
                   keeping me company tonight. I finished restructuring the archives...
                   found some old files I thought were lost forever.
                 </p>
-                <div class="quote">"The only way to understand the wired is to become part of it."</div>
+                <div class="quote cursor-text">"The only way to understand the wired is to become part of it."</div>
               </div>
 
               <div class="diary-entry">
-                <div class="diary-date">// 2026.05.15 — 01:47 JST</div>
-                <p>
+                <div class="diary-date cursor-text">// 2026.05.15 — 01:47 JST</div>
+                <p class="cursor-text">
                   Does anyone still visit these kinds of pages? The old web feels
                   like a graveyard sometimes. But graveyards can be beautiful,
                   if you know where to look.
@@ -2160,12 +2163,12 @@
               </div>
 
               <div class="diary-entry">
-                <div class="diary-date">// 2026.04.30 — 22:10 JST</div>
-                <p>
+                <div class="diary-date cursor-text">// 2026.04.30 — 22:10 JST</div>
+                <p class="cursor-text">
                   新しい実験を始めた。I started a new experiment — trying to capture
                   the feeling of static between channels. That liminal noise.
                 </p>
-                <div class="quote">"Close the world. Open the nExt."</div>
+                <div class="quote cursor-text">"Close the world. Open the nExt."</div>
               </div>
             </div>
 
@@ -2202,7 +2205,7 @@
 
             <!-- Now Playing -->
             <div class="widget">
-              <div class="widget-title">♫ now playing</div>
+              <div class="widget-title cursor-text">♫ now playing</div>
               <div class="now-playing">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                   <div class="audio-bars paused" id="widget-audio-bars" style="cursor: pointer;" title="Click to Play/Pause">
@@ -2217,14 +2220,14 @@
                   </div>
                   <button id="widget-play-btn" class="widget-play-btn" title="Play/Pause">PLAY</button>
                 </div>
-                <div class="track-title">Duvet — Bôa</div>
-                <div class="track-info">and you don't seem to understand...</div>
+                <div class="track-title cursor-text">Duvet — Bôa</div>
+                <div class="track-info cursor-text">and you don't seem to understand...</div>
               </div>
             </div>
 
             <!-- Image Thumbnails -->
             <div class="widget">
-              <div class="widget-title">⬡ gallery</div>
+              <div class="widget-title cursor-text">⬡ gallery</div>
               <div class="thumb-grid">
                 <div class="thumb">
                   <img src="gif/lonely.gif" alt="Img 1">
@@ -2243,7 +2246,7 @@
 
             <!-- Clock Display -->
             <div class="clock-widget">
-              <div class="clock-title">⏱ system time</div>
+              <div class="clock-title cursor-text">⏱ system time</div>
               <div class="clock-display" id="widget-clock">00:00:00</div>
             </div>
 
@@ -2252,21 +2255,21 @@
 
             <!-- Badges -->
             <div class="widget">
-              <div class="widget-title">buttons</div>
+              <div class="widget-title cursor-text">buttons</div>
               <div class="badges-row">
-                <div class="badge-88x31 red">SERIAL<br>EXPERIMENTS</div>
-                <div class="badge-88x31 dark">MADE WITH<br>VIM</div>
-                <div class="badge-88x31">BEST VIEWED<br>1024x768</div>
-                <div class="badge-88x31 red">THE WIRED<br>IS REAL</div>
+                <div class="badge-88x31 red cursor-text">SERIAL<br>EXPERIMENTS</div>
+                <div class="badge-88x31 dark cursor-text">MADE WITH<br>VIM</div>
+                <div class="badge-88x31 cursor-text">BEST VIEWED<br>1024x768</div>
+                <div class="badge-88x31 red cursor-text">THE WIRED<br>IS REAL</div>
               </div>
               <div style="margin-top: 4px;">
-                <div class="rss-icon">◈ RSS</div>
+                <div class="rss-icon cursor-text">◈ RSS</div>
               </div>
             </div>
 
             <!-- Cryptic -->
             <div class="widget">
-              <div class="cryptic-text">
+              <div class="cryptic-text cursor-text">
                 ▸ you don't need to be afraid<br>
                 ▸ the wired is watching<br>
                 ▸ layer 07 loaded<br>
@@ -2275,7 +2278,7 @@
             </div>
 
             <!-- Best Viewed -->
-            <div class="best-viewed">
+            <div class="best-viewed cursor-text">
               ✧ best viewed on desktop ✧<br>
               made with love &amp; loneliness
             </div>
@@ -2491,7 +2494,7 @@
       const playerMinBtn = document.getElementById('player-min-btn');
       const retroPlayer = document.getElementById('retro-player');
 
-      // Sync state function
+      // Sync state function aja
       function updatePlayerUI() {
         if (audio.paused) {
           widgetPlayBtn.textContent = 'PLAY';
@@ -2665,7 +2668,7 @@
           old.el.remove();
         }
         
-        // Fade out animation
+        // Fade out animation for the trail
         let opacity = 1;
         const fadeInterval = setInterval(() => {
           opacity -= 0.15;
