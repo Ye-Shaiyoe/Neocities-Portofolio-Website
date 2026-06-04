@@ -819,6 +819,13 @@
     padding-left: 10px;
     border-left: 2px solid #555555;
     margin-top: 4px;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.3s ease;
+  }
+
+  .diary-entry .quote:hover {
+    border-left-color: #cc6464;
+    text-shadow: 0 0 8px rgba(200, 100, 100, 0.3);
   }
 
   /* ---- Bottom Cards Row ---- */
@@ -841,6 +848,11 @@
   .mini-card:hover {
     border-color: #222222;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: url('cursor/cursor-select.cur'), pointer;
+  }
+
+  .mini-card-title {
+    cursor: url('cursor/cursor-select.cur'), pointer;
   }
 
   .mini-card-title {
@@ -896,6 +908,7 @@
     border: 1px solid #000000;
     padding: 8px 10px;
     position: relative;
+    cursor: url('cursor/cursor-select.cur'), pointer;
   }
 
   .widget-title {
@@ -1266,6 +1279,7 @@
     letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
+    user-select: none;
   }
 
   .badge-88x31:hover {
@@ -1315,6 +1329,80 @@
     line-height: 1.4;
   }
 
+  /* ======================================================
+     GLITCH TEXT EFFECT
+  ====================================================== */
+  .glitch {
+    position: relative;
+    display: inline-block;
+    animation: glitchText 0.8s ease-in-out;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+
+  .glitch::before {
+    animation: glitchBefore 0.3s infinite;
+    color: rgba(255, 0, 0, 0.8);
+    z-index: -1;
+    text-shadow: -2px 0 #00ffff;
+  }
+
+  .glitch::after {
+    animation: glitchAfter 0.3s infinite;
+    color: rgba(0, 255, 255, 0.8);
+    z-index: -2;
+    text-shadow: 2px 0 #ff00ff;
+  }
+
+  @keyframes glitchText {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  @keyframes glitchBefore {
+    0% { clip-path: inset(0 0 0 0); }
+    20% { clip-path: inset(30% 0 45% 0); }
+    40% { clip-path: inset(10% 0 60% 0); }
+    60% { clip-path: inset(50% 0 20% 0); }
+    80% { clip-path: inset(25% 0 50% 0); }
+    100% { clip-path: inset(0 0 0 0); }
+  }
+
+  @keyframes glitchAfter {
+    0% { clip-path: inset(0 0 0 0); }
+    20% { clip-path: inset(45% 0 30% 0); }
+    40% { clip-path: inset(60% 0 10% 0); }
+    60% { clip-path: inset(20% 0 50% 0); }
+    80% { clip-path: inset(50% 0 25% 0); }
+    100% { clip-path: inset(0 0 0 0); }
+  }
+
+  .glitch-active {
+    animation: glitchActive 2s ease-in-out infinite;
+  }
+
+  @keyframes glitchActive {
+    0%, 100% { opacity: 1; }
+    45% { opacity: 1; }
+    50% { opacity: 0; }
+    55% { opacity: 1; }
+    60% { opacity: 0; }
+    65% { opacity: 1; }
+  }
+
   /* Eye symbol */
   .eye-symbol {
     text-align: center;
@@ -1325,11 +1413,83 @@
     cursor: default;
     user-select: none;
     padding: 2px 0;
+    transition: all 0.3s ease;
+  }
+
+  .eye-symbol:hover {
+    color: rgba(255, 100, 100, 0.9);
+    text-shadow: 0 0 30px rgba(200, 80, 80, 0.8);
+    transform: scale(1.15);
   }
 
   @keyframes eyePulse {
     0%, 100% { opacity: 0.3; text-shadow: 0 0 15px rgba(150, 0, 0, 0.3); }
     50% { opacity: 0.7; text-shadow: 0 0 25px rgba(180, 0, 0, 0.5); }
+  }
+
+  /* ======================================================
+     EXTENDED CURSOR TRIGGERS
+  ====================================================== */
+  .cursor-text, .cursor-interact, .cursor-grab, .cursor-zoom, .cursor-link {
+    cursor: url('cursor/cursor-select.cur'), pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cursor-text {
+    cursor: text;
+  }
+
+  .cursor-grab:hover {
+    cursor: grab;
+  }
+
+  .cursor-grab:active {
+    cursor: grabbing;
+  }
+
+  .cursor-zoom {
+    cursor: zoom-in;
+  }
+
+  .cursor-zoom:hover {
+    cursor: zoom-out;
+  }
+
+  /* Clock display widget */
+  .clock-widget {
+    background: rgba(8, 3, 4, 0.85);
+    border: 1px solid #000000;
+    padding: 10px;
+    position: relative;
+    font-family: 'VT323', monospace;
+  }
+
+  .clock-title {
+    font-size: 12px;
+    color: rgba(220, 120, 120, 0.85);
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #111111;
+    padding-bottom: 4px;
+  }
+
+  .clock-display {
+    background: #050203;
+    border: 1px solid #1f0f11;
+    padding: 8px 6px;
+    font-size: 16px;
+    color: #c86464;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 3px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 8px rgba(200, 100, 100, 0.4);
+  }
+
+  .clock-display:hover {
+    color: #e08080;
+    text-shadow: 0 0 15px rgba(200, 100, 100, 0.6);
   }
 
   /* Cryptic text */
@@ -1421,6 +1581,50 @@
   @keyframes moonDrift {
     0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
     50% { transform: translateY(-5px) rotate(5deg); opacity: 0.3; }
+  }
+
+  /* ======================================================
+     FLOATING IMAGE — top right corner
+  ====================================================== */
+  .floating-img-corner {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 90;
+    pointer-events: auto;
+    opacity: 0.65;
+    animation: floatBounce 4s ease-in-out infinite;
+  }
+
+  .floating-img-corner img {
+    width: 140px;
+    height: auto;
+    border: 2px solid rgba(200, 100, 100, 0.4);
+    border-radius: 8px;
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.7),
+      0 0 30px rgba(200, 100, 100, 0.2),
+      inset 0 0 15px rgba(0, 0, 0, 0.3);
+    filter: saturate(0.5) brightness(0.85) contrast(1.1);
+    transition: all 0.4s ease;
+    cursor: url('cursor/cursor-select.cur'), pointer;
+  }
+
+  .floating-img-corner img:hover {
+    border-color: rgba(200, 100, 100, 0.8);
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.8),
+      0 0 50px rgba(200, 100, 100, 0.4),
+      inset 0 0 15px rgba(0, 0, 0, 0.3);
+    filter: saturate(0.7) brightness(0.95) contrast(1.15);
+    transform: scale(1.05);
+  }
+
+  @keyframes floatBounce {
+    0%, 100% { transform: translateY(0) rotate(-2deg); opacity: 0.65; }
+    25% { transform: translateY(-10px) rotate(-1deg); opacity: 0.7; }
+    50% { transform: translateY(-20px) rotate(1deg); opacity: 0.75; }
+    75% { transform: translateY(-10px) rotate(2deg); opacity: 0.7; }
   }
 
   /* ======================================================
@@ -1876,7 +2080,7 @@
             </div>
           </div>
           
-          <a href="#" class="guestbook-btn" id="guestbook-link">
+          <a href="guestbook/index.html" class="guestbook-btn" id="guestbook-link">
             <span class="gb-icon">✉</span> Visit Guestbook
           </a>
         </div>
@@ -1887,8 +2091,8 @@
 
         <!-- Header Bar -->
         <div class="header-bar">
-          <div class="header-title flicker">LAIN IWAKURA</div>
-          <div class="header-controls">
+          <div class="header-title flicker cursor-grab" data-text="LAIN IWAKURA">LAIN IWAKURA</div>
+          <div class="header-controls cursor-interact">
             <div class="header-dot"></div>
             <div class="header-dot"></div>
             <div class="header-dot"></div>
@@ -1917,13 +2121,13 @@
 
             <!-- Welcome -->
             <div class="welcome-panel">
-              <h2>Welcome, traveler</h2>
-              <p>
+              <h2 class="cursor-text">Welcome, traveler</h2>
+              <p class="cursor-text">
                 You have connected to a forgotten node in the wired.
                 This is a personal archive — a world built from fragments
                 of memory, art, and digital decay.
               </p>
-              <p>
+              <p class="cursor-text">
                 Explore carefully. Not everything here is what it seems.
                 Some doors lead deeper. Some lead nowhere at all.
               </p>
@@ -2037,8 +2241,14 @@
               </div>
             </div>
 
+            <!-- Clock Display -->
+            <div class="clock-widget">
+              <div class="clock-title">⏱ system time</div>
+              <div class="clock-display" id="widget-clock">00:00:00</div>
+            </div>
+
             <!-- Eye Symbol -->
-            <div class="eye-symbol" title="The eye sees all">◉</div>
+            <div class="eye-symbol" title="The eye sees all" class="cursor-zoom">◉</div>
 
             <!-- Badges -->
             <div class="widget">
@@ -2076,8 +2286,8 @@
 
         <!-- Status Bar -->
         <div class="status-bar">
-          <div class="status-left">protocol_7 :: connected</div>
-          <div class="status-right" id="clock-display">00:00:00</div>
+          <div class="status-left cursor-grab">protocol_7 :: connected</div>
+          <div class="status-right cursor-interact" id="clock-display">00:00:00</div>
         </div>
 
       </div>
@@ -2093,6 +2303,11 @@
 
     </div>
     <!-- end container -->
+
+    <!-- Floating Image — top right -->
+    <div class="floating-img-corner">
+      <img src="img/lain-right.jpg" alt="Floating Lain" loading="lazy">
+    </div>
 
   </div>
   <!-- end page-wrapper -->
@@ -2381,6 +2596,155 @@
 
       // Sync state initially
       updatePlayerUI();
+    })();
+
+    // ======================================================
+    // WIDGET CLOCK UPDATE — real-time in widget
+    // ======================================================
+    (function() {
+      const widgetClockEl = document.getElementById('widget-clock');
+      if (!widgetClockEl) return;
+      
+      function updateWidgetClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        widgetClockEl.textContent = h + ':' + m + ':' + s;
+      }
+      setInterval(updateWidgetClock, 1000);
+      updateWidgetClock();
+    })();
+
+    // ======================================================
+    // GLITCH TEXT EFFECT — triggered on specific elements
+    // ======================================================
+    (function() {
+      const headerTitle = document.querySelector('.header-title');
+      
+      if (headerTitle) {
+        function triggerGlitch() {
+          headerTitle.classList.add('glitch-active');
+          setTimeout(() => {
+            headerTitle.classList.remove('glitch-active');
+          }, 600 + Math.random() * 400);
+          setTimeout(triggerGlitch, 6000 + Math.random() * 8000);
+        }
+        setTimeout(triggerGlitch, 2000);
+      }
+    })();
+
+    // ======================================================
+    // CURSOR TRAIL EFFECT — aesthetic mouse trail
+    // ======================================================
+    (function() {
+      const trails = [];
+      const maxTrails = 8;
+      
+      document.addEventListener('mousemove', (e) => {
+        // Create trail element
+        const trail = document.createElement('div');
+        trail.style.position = 'fixed';
+        trail.style.left = e.clientX + 'px';
+        trail.style.top = e.clientY + 'px';
+        trail.style.width = '4px';
+        trail.style.height = '4px';
+        trail.style.background = 'rgba(200, 100, 100, 0.6)';
+        trail.style.borderRadius = '50%';
+        trail.style.pointerEvents = 'none';
+        trail.style.zIndex = '999';
+        trail.style.boxShadow = '0 0 3px rgba(200, 100, 100, 0.5)';
+        trail.style.opacity = '1';
+        document.body.appendChild(trail);
+        
+        trails.push({ el: trail, life: 1 });
+        
+        // Keep only maxTrails trails
+        if (trails.length > maxTrails) {
+          const old = trails.shift();
+          old.el.remove();
+        }
+        
+        // Fade out animation
+        let opacity = 1;
+        const fadeInterval = setInterval(() => {
+          opacity -= 0.15;
+          trail.style.opacity = opacity;
+          if (opacity <= 0) {
+            clearInterval(fadeInterval);
+            trail.remove();
+          }
+        }, 30);
+      });
+    })();
+
+    // ======================================================
+    // INTERACTIVE TEXT GLITCH on hover
+    // ======================================================
+    (function() {
+      const glitchTargets = document.querySelectorAll('[data-text]');
+      glitchTargets.forEach(el => {
+        el.addEventListener('mouseenter', function() {
+          if (!this.classList.contains('glitch')) {
+            this.classList.add('glitch');
+          }
+        });
+        
+        el.addEventListener('mouseleave', function() {
+          this.classList.remove('glitch');
+        });
+      });
+    })();
+
+    // ======================================================
+    // EXTENDED CURSOR INTERACTIONS
+    // ======================================================
+    (function() {
+      // Cursor grab effect on interactive elements
+      const grabElements = document.querySelectorAll('.cursor-grab');
+      grabElements.forEach(el => {
+        el.addEventListener('mousedown', () => {
+          el.style.transform = 'scale(0.95)';
+        });
+        el.addEventListener('mouseup', () => {
+          el.style.transform = '';
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = '';
+        });
+      });
+      
+      // Cursor interact effect
+      const interactElements = document.querySelectorAll('.cursor-interact');
+      interactElements.forEach(el => {
+        el.addEventListener('mouseenter', function() {
+          this.style.borderColor = '#666666';
+          this.style.boxShadow = '0 0 8px rgba(200, 100, 100, 0.2)';
+        });
+        el.addEventListener('mouseleave', function() {
+          this.style.borderColor = '';
+          this.style.boxShadow = '';
+        });
+      });
+    })();
+
+    // ======================================================
+    // RANDOM GLITCH DISTORTION - more aggressive
+    // ======================================================
+    (function() {
+      const headerBar = document.querySelector('.header-bar');
+      function randomHeaderGlitch() {
+        if (Math.random() > 0.7) {
+          headerBar.style.background = 'rgba(200, 50, 50, 0.3)';
+          headerBar.style.filter = 'hue-rotate(180deg)';
+          setTimeout(() => {
+            headerBar.style.background = '';
+            headerBar.style.filter = '';
+          }, 50 + Math.random() * 100);
+        }
+        setTimeout(randomHeaderGlitch, 3000 + Math.random() * 7000);
+      }
+      randomHeaderGlitch();
     })();
   </script>
 
